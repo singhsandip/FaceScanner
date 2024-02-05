@@ -9,6 +9,7 @@ This iOS app utilizes the AVFoundation framework for custom camera implementatio
 - Custom camera using AVFoundation
 - Face detection using iOS Vision framework
 - Drawing detected face using CALayer
+- Filter detected abnormalities
 
 ## Requirements
 
