@@ -92,12 +92,6 @@ class OutputViewController: UIViewController {
         if fromCamera {
             let heightScale = newSize.height / originalSize.height
             
-            if rotation {
-                // Rotate the bounding box if needed
-                transformedBoundingBox = rotateBoundingBox90DegreesClockwise(originalBoundingBox: originalBoundingBox, imageSize: originalSize)
-            }
-            
-            // Apply scale to the rotated/transposed bounding box
             transformedBoundingBox.origin.x *= heightScale
             transformedBoundingBox.origin.y *= heightScale
             transformedBoundingBox.size.width *= heightScale
@@ -112,30 +106,26 @@ class OutputViewController: UIViewController {
             let widthScale = detecedImage.bounds.size.width / image.size.width
             let heightScale = detecedImage.bounds.size.height / image.size.height
             let imageViewScale = min(widthScale, heightScale)
+ 
+            let scaledImageHeight = image.size.height * imageViewScale
             
-            var height =  originalBoundingBox.size.height * imageViewScale
+            let normalizedMinY = originalBoundingBox.minY / image.size.height
+            let normalizedHeight = originalBoundingBox.height / image.size.height
+
+            let y = ((1 - normalizedMinY - normalizedHeight) * scaledImageHeight)
+
             let scaledBox = CGRect(x: originalBoundingBox.origin.x * imageViewScale,
-                                   y: (originalBoundingBox.origin.y * imageViewScale) + height,
+                                   y: y,
                                    width: originalBoundingBox.size.width * imageViewScale,
-                                   height: height)
+                                   height: originalBoundingBox.size.height * imageViewScale)
             
+            
+            print("scaled box: \(scaledBox)")
             
             transformedBoundingBox = scaledBox
         }
         
         return transformedBoundingBox
-    }
-    
-    func rotateBoundingBox90DegreesClockwise(originalBoundingBox: CGRect, imageSize: CGSize) -> CGRect {
-        var rotatedBoundingBox = CGRect()
-        
-        // Switch x and y, and adjust them based on the new width and height
-        rotatedBoundingBox.origin.x = originalBoundingBox.origin.y
-        rotatedBoundingBox.origin.y = imageSize.width - originalBoundingBox.origin.x - originalBoundingBox.width
-        rotatedBoundingBox.size.width = originalBoundingBox.size.height
-        rotatedBoundingBox.size.height = originalBoundingBox.size.width
-        
-        return rotatedBoundingBox
     }
     
     

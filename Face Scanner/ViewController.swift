@@ -72,7 +72,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate ,UINavig
     
     func detectFaceCoordinates(in image: UIImage) {
         guard let cgImage = image.cgImage else { return }
-//        let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+
         let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: image.pixelBuffer()!, orientation: .up, options: [:])
         
         let request = VNDetectFaceLandmarksRequest { [weak self] request, error in

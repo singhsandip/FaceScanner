@@ -154,7 +154,7 @@ extension FaceDetectionViewController: AVCaptureVideoDataOutputSampleBufferDeleg
     
     private func detectFace(in image: CVPixelBuffer) {
         
-        let faceDetectionRequest = VNDetectFaceRectanglesRequest(completionHandler: { (request: VNRequest, error: Error?) in
+        let faceDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: { (request: VNRequest, error: Error?) in
             DispatchQueue.main.async {
                 if let results = request.results as? [VNFaceObservation], !results.isEmpty {
                     self.isFaceDetected = true
