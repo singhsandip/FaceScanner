@@ -13,6 +13,12 @@
 		C06B64F32B701C1500F74643 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C06B64F12B701C1500F74643 /* Main.storyboard */; };
 		C06B64F52B701C1600F74643 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C06B64F42B701C1600F74643 /* Assets.xcassets */; };
 		C06B64F82B701C1600F74643 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C06B64F62B701C1600F74643 /* LaunchScreen.storyboard */; };
+		C06B65002B7030EC00F74643 /* FaceDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06B64FF2B7030EC00F74643 /* FaceDetectionViewController.swift */; };
+		C06B65022B70379C00F74643 /* FaceDetectionViewController+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06B65012B70379C00F74643 /* FaceDetectionViewController+Extras.swift */; };
+		C06B65042B7041C800F74643 /* FacialAbnormality.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06B65032B7041C800F74643 /* FacialAbnormality.swift */; };
+		C06B65082B70531900F74643 /* OutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06B65072B70531900F74643 /* OutputViewController.swift */; };
+		C06B650A2B70F0B000F74643 /* FacialAbnormalityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06B65092B70F0B000F74643 /* FacialAbnormalityType.swift */; };
+		C06B650E2B713C0200F74643 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06B650D2B713C0200F74643 /* Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,12 @@
 		C06B64F42B701C1600F74643 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C06B64F72B701C1600F74643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C06B64F92B701C1600F74643 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C06B64FF2B7030EC00F74643 /* FaceDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectionViewController.swift; sourceTree = "<group>"; };
+		C06B65012B70379C00F74643 /* FaceDetectionViewController+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FaceDetectionViewController+Extras.swift"; sourceTree = "<group>"; };
+		C06B65032B7041C800F74643 /* FacialAbnormality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacialAbnormality.swift; sourceTree = "<group>"; };
+		C06B65072B70531900F74643 /* OutputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputViewController.swift; sourceTree = "<group>"; };
+		C06B65092B70F0B000F74643 /* FacialAbnormalityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacialAbnormalityType.swift; sourceTree = "<group>"; };
+		C06B650D2B713C0200F74643 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,8 @@
 		C06B64EA2B701C1500F74643 /* Face Scanner */ = {
 			isa = PBXGroup;
 			children = (
+				C06B65062B70502200F74643 /* Output */,
+				C06B65052B704FE100F74643 /* FaceDetection */,
 				C06B64EB2B701C1500F74643 /* AppDelegate.swift */,
 				C06B64ED2B701C1500F74643 /* SceneDelegate.swift */,
 				C06B64EF2B701C1500F74643 /* ViewController.swift */,
@@ -63,8 +77,28 @@
 				C06B64F42B701C1600F74643 /* Assets.xcassets */,
 				C06B64F62B701C1600F74643 /* LaunchScreen.storyboard */,
 				C06B64F92B701C1600F74643 /* Info.plist */,
+				C06B650D2B713C0200F74643 /* Helper.swift */,
 			);
 			path = "Face Scanner";
+			sourceTree = "<group>";
+		};
+		C06B65052B704FE100F74643 /* FaceDetection */ = {
+			isa = PBXGroup;
+			children = (
+				C06B64FF2B7030EC00F74643 /* FaceDetectionViewController.swift */,
+				C06B65012B70379C00F74643 /* FaceDetectionViewController+Extras.swift */,
+				C06B65032B7041C800F74643 /* FacialAbnormality.swift */,
+				C06B65092B70F0B000F74643 /* FacialAbnormalityType.swift */,
+			);
+			path = FaceDetection;
+			sourceTree = "<group>";
+		};
+		C06B65062B70502200F74643 /* Output */ = {
+			isa = PBXGroup;
+			children = (
+				C06B65072B70531900F74643 /* OutputViewController.swift */,
+			);
+			path = Output;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +172,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C06B65082B70531900F74643 /* OutputViewController.swift in Sources */,
+				C06B65042B7041C800F74643 /* FacialAbnormality.swift in Sources */,
+				C06B650A2B70F0B000F74643 /* FacialAbnormalityType.swift in Sources */,
 				C06B64F02B701C1500F74643 /* ViewController.swift in Sources */,
 				C06B64EC2B701C1500F74643 /* AppDelegate.swift in Sources */,
+				C06B65022B70379C00F74643 /* FaceDetectionViewController+Extras.swift in Sources */,
+				C06B650E2B713C0200F74643 /* Helper.swift in Sources */,
 				C06B64EE2B701C1500F74643 /* SceneDelegate.swift in Sources */,
+				C06B65002B7030EC00F74643 /* FaceDetectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,7 +327,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KZ6W3N6WT9;
+				DEVELOPMENT_TEAM = 5Q44THS6KD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Face Scanner/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -295,6 +335,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -315,7 +356,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KZ6W3N6WT9;
+				DEVELOPMENT_TEAM = 5Q44THS6KD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Face Scanner/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -323,6 +364,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

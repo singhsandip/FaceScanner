@@ -21,5 +21,9 @@
 			</array>
 		</dict>
 	</dict>
+    
+    <key>NSCameraUsageDescription</key>
+    <string>$(PRODUCT_NAME) Application  Used Your Camera To  Capture Images to generate HD images with backgrounds</string>
 </dict>
+
 </plist>
