@@ -36,9 +36,10 @@ class OutputViewController: UIViewController {
         super.viewDidLoad()
         self.displayCapturedImage()
         self.calculateBoundingBox()
-    
+        
         self.drawAbnormalities(type: nil)
     }
+    
     
     private func displayCapturedImage() {
         detecedImage.image = capturedImage
@@ -61,7 +62,6 @@ class OutputViewController: UIViewController {
         if let transformedBoundingBox = screenBoundingBox{
             abnormalities = generateSpecificAbnormalities(within: transformedBoundingBox)
         }
-        
     }
     
     private func drawAbnormalities(type: FacialAbnormalityType?) {
@@ -85,7 +85,7 @@ class OutputViewController: UIViewController {
     }
     
     
-    func transformBoundingBox(originalBoundingBox: CGRect, from originalSize: CGSize, to newSize: CGSize, withRotation rotation: Bool = false) -> CGRect {
+    func transformBoundingBox(originalBoundingBox: CGRect, from originalSize: CGSize, to newSize: CGSize, withRotation rotation: Bool = false) -> CGRect? {
         
         var transformedBoundingBox = originalBoundingBox
         
@@ -104,18 +104,23 @@ class OutputViewController: UIViewController {
             transformedBoundingBox.size.height *= heightScale
             
         }else {
-            let imageViewSize = detecedImage.frame.size
             
-            // Calculate the pixel coordinates
-            let rectX = originalBoundingBox.origin.x * imageViewSize.width
-            let rectY = originalBoundingBox.origin.y * imageViewSize.height
-            let rectWidth = originalBoundingBox.size.width * imageViewSize.width
-            let rectHeight = originalBoundingBox.size.height * imageViewSize.height
-
-            // Create a CGRect using the calculated coordinates
-            let boundingBoxRect = CGRect(x: rectX, y: rectY/2.0, width: rectWidth, height: rectHeight)
-
-            transformedBoundingBox = boundingBoxRect
+            guard let image = capturedImage else {
+                return nil
+            }
+            
+            let widthScale = detecedImage.bounds.size.width / image.size.width
+            let heightScale = detecedImage.bounds.size.height / image.size.height
+            let imageViewScale = min(widthScale, heightScale)
+            
+            var height =  originalBoundingBox.size.height * imageViewScale
+            let scaledBox = CGRect(x: originalBoundingBox.origin.x * imageViewScale,
+                                   y: (originalBoundingBox.origin.y * imageViewScale) + height,
+                                   width: originalBoundingBox.size.width * imageViewScale,
+                                   height: height)
+            
+            
+            transformedBoundingBox = scaledBox
         }
         
         return transformedBoundingBox
@@ -140,13 +145,13 @@ class OutputViewController: UIViewController {
         let abnormalitiesToDraw: [FacialAbnormality]
         
         if let type = type {
-                // Filter abnormalities based on selected types
-                abnormalitiesToDraw = abnormalities.filter { $0.type == type }
-            } else {
-                // If type is nil, use all abnormalities
-                abnormalitiesToDraw = abnormalities
-            }
-    
+            // Filter abnormalities based on selected types
+            abnormalitiesToDraw = abnormalities.filter { $0.type == type }
+        } else {
+            // If type is nil, use all abnormalities
+            abnormalitiesToDraw = abnormalities
+        }
+        
         // Drawing code for abnormalities
         for abnormality in abnormalitiesToDraw {
             // Draw rectangle at the abnormality location
@@ -209,7 +214,7 @@ class OutputViewController: UIViewController {
         return abnormalities
     }
     
-   
+    
     @IBAction func drawAllAbnormalities(_ sender: Any) {
         deselect()
         drawAbnormalities(type: nil)
@@ -219,14 +224,14 @@ class OutputViewController: UIViewController {
     @IBAction func drawWrinkles(_ sender: Any) {
         deselect()
         drawAbnormalities(type: .wrinkle)
-       
+        
         cbWrinkles.image = UIImage(systemName: "checkmark.square.fill")
     }
     
     @IBAction func drawPores(_ sender: Any) {
         deselect()
         drawAbnormalities(type: .pores)
-       
+        
         cbPores.image = UIImage(systemName: "checkmark.square.fill")
     }
     

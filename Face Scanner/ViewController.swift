@@ -37,11 +37,36 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate ,UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
             print("image selected")
-            detectFaceCoordinates(in: selectedImage)
+            detectFaces(in: selectedImage)
         } else {
             print("image not selected")
         }
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func detectFaces(in image: UIImage) {
+        guard let cgImage = image.cgImage else { return }
+
+        let request = VNDetectFaceRectanglesRequest { [weak self] request, error in
+            DispatchQueue.main.async {
+                guard let strongSelf = self else { return }
+
+                if let faces = request.results as? [VNFaceObservation], let firstFace = faces.first {
+                    let boundingBox = firstFace.boundingBox
+                    let size = CGSize(width: boundingBox.width * CGFloat(cgImage.width),
+                                      height: boundingBox.height * CGFloat(cgImage.height))
+                    let origin = CGPoint(x: boundingBox.minX * CGFloat(cgImage.width),
+                                         y: (1 - boundingBox.minY - boundingBox.height) * CGFloat(cgImage.height)) // Flip the y-coordinate
+                    
+                    strongSelf.toOutput(image: image, faceBoundingBox: CGRect(origin: origin, size: size))
+                } else {
+                    strongSelf.showAlert(title: "No Face Detected", message: "Please try again.")
+                }
+            }
+        }
+
+        let handler = VNImageRequestHandler(cgImage: cgImage,orientation: .up ,options: [:])
+        try? handler.perform([request])
     }
     
     
